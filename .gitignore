@@ -1,3 +1,5 @@
-ssl/*
+ssl/domain.crt
+ssl/domain.key
+ssl/domain.ca-bundle
 .env
 .vscode
