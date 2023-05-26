@@ -1,0 +1,6 @@
+fastapi==0.68.2
+python-dotenv==0.19.1
+pydantic==1.8.2
+requests==2.26.0
+uvicorn==0.15.0
+hmac==0.0.4

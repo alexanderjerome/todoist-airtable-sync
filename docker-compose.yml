@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  nginx_todoist_server:
+    build:
+      context: ./nginx
+      args:
+        - DOMAIN
+    volumes:
+      - ./nginx:/etc/nginx
+      - ./ssl:/etc/ssl
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - webhook_todoist_airtable_app
+    env_file:
+      - .env
+  webhook_todoist_airtable_app:
+    build:
+      context: ./todoist-sync
+    volumes:
+      - ./todoist-sync:/app
+    command: ["python", "main.py"]
+    env_file:
+      - .env
+
