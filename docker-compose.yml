@@ -1,26 +1,37 @@
 version: '3.8'
 services:
-  nginx_todoist_server:
+  nginx_server:
+    image: nginx_todoist_server:latest
     build:
       context: ./nginx
       args:
         - DOMAIN
+    container_name: nginx_server
     volumes:
       - ./nginx:/etc/nginx
       - ./ssl:/etc/ssl
     ports:
-      - "80:80"
       - "443:443"
+    networks:
+      - todoist_network
     depends_on:
-      - webhook_todoist_airtable_app
-    env_file:
-      - .env
-  webhook_todoist_airtable_app:
+      - webhook_app
+
+  webhook_app:
+    image: webhook_todoist_airtable_app:latest
     build:
       context: ./todoist-sync
+    container_name: webhook_app
+    ports:
+      - 8000:8000
     volumes:
       - ./todoist-sync:/app
     command: ["python", "main.py"]
     env_file:
       - .env
+    networks:
+      - todoist_network
 
+networks:
+  todoist_network:
+    driver: bridge

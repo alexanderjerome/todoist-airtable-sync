@@ -11,6 +11,7 @@ ssl/*.ca-bundle
 **/ssl/domain.crt
 **/ssl/domain.key
 **/ssl/domain.ca-bundle
-
+troubleshooting.sh
+troubleshooting.txt
 .env
 .vscode

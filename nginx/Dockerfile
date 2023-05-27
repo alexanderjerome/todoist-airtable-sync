@@ -2,19 +2,18 @@
 FROM nginx:latest
 
 # Copy the SSL certificates into the Docker image
-COPY ./ssl/domain.crt /etc/nginx/nginx-config/ssl_certs/
-COPY ./ssl/domain.key /etc/nginx/nginx-config/ssl_certs/
-COPY ./ssl/domain.ca-bundle /etc/nginx/nginx-config/ssl_certs/
+COPY ./ssl/domain.crt /etc/nginx/ssl/domain.crt
+COPY ./ssl/domain.key /etc/nginx/ssl/domain.key
+COPY ./ssl/domain.ca-bundle /etc/nginx/ssl/domain.ca-bundle
 
 # Copy the Nginx configuration file into the container
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 
 # Replace the placeholder with the actual domain and port number
-RUN sed -i 's/TODOIST_DOMAIN_PLACEHOLDER/todoist.'${DOMAIN}'/g' /etc/nginx/nginx.conf
-RUN sed -i 's/__PORT__/'${PORT}'/g' /etc/nginx/nginx.conf
+RUN sed -i 's/TODOIST_DOMAIN_PLACEHOLDER/todoist.'${DOMAIN}'/g' /etc/nginx/conf.d/default.conf
+RUN sed -i 's/__PORT__/'${PORT}'/g' /etc/nginx/conf.d/default.conf
 
-# Make port 80 and 443 available to the world outside this container
-EXPOSE 80
+# Make port 443 available to the world outside this container
 EXPOSE 443
 
 # Start Nginx
