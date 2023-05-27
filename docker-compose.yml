@@ -9,7 +9,7 @@ services:
     container_name: nginx_server
     volumes:
       - ./nginx:/etc/nginx
-      - ./ssl:/etc/ssl
+      - /etc/letsencrypt:/etc/letsencrypt  # <--- Adjust this line
     ports:
       - "443:443"
     networks:

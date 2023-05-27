@@ -1,16 +1,4 @@
-ssl/*
-ssl/domain.*
-ssl/*.crt
-ssl/*.key
-ssl/*.ca-bundle
-/ssl/*
-/ssl/domain.*
-/ssl/*.crt
-/ssl/*.key
-/ssl/*.ca-bundle
-**/ssl/domain.crt
-**/ssl/domain.key
-**/ssl/domain.ca-bundle
+*.pem
 troubleshooting.sh
 troubleshooting.txt
 .env

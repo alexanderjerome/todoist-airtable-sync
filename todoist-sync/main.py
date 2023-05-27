@@ -124,6 +124,12 @@ class TodoistAuthorization:
             return False
     
 app = FastAPI()
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    logging.info(f"Incoming request: {request.method} {request.url}")
+    response = await call_next(request)
+    logging.info(f"Response: {response.status_code}")
+    return response
 
 @app.get("/todoist")
 def todoist():
